@@ -2,6 +2,7 @@ package de.cg.cgge.io;
 
 import java.awt.event.*;
 
+import de.cg.cgge.events.WindowResizedEvent;
 import de.cg.cgge.game.GameInstance;
 import de.cg.cgge.gui.Window;
 
@@ -20,6 +21,9 @@ public class WindowListener implements ComponentListener {
 
         game.setWidth(w);
         game.setHeight(h);
+
+        game.getEventListeners()
+                .forEach(el -> el.onWindowResized(new WindowResizedEvent(win.getX(), win.getY(), w, h)));
 
     }
 

@@ -1,7 +1,11 @@
 package de.cg.cgge.game;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import de.cg.cgge.events.Event;
+import de.cg.cgge.events.EventListener;
 import de.cg.cgge.files.FileContents;
 import de.cg.cgge.files.GameFile;
 import de.cg.cgge.gui.Drawer;
@@ -16,6 +20,8 @@ public class GameInstance {
     private int height = 720;
     private boolean isTaskbarActive = false;
     private boolean isVisible = true;
+
+    private List<EventListener> eventListeners = new ArrayList<>(1);
 
     private Drawer drawer;
 
@@ -174,6 +180,16 @@ public class GameInstance {
      */
     public boolean isVisible() {
         return isVisible;
+    }
+
+    public void addEventListener(EventListener l)
+    {
+        eventListeners.add(l);
+    }
+
+    public List<EventListener> getEventListeners()
+    {
+        return eventListeners;
     }
 
 }

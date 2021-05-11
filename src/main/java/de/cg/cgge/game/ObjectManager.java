@@ -23,6 +23,7 @@ public class ObjectManager {
             for (GameObject obj : toAdd) {
                 obj.setID(totalObjects);
                 obj.create();
+                obj.room.getGameInstance().getEventListeners().forEach(el -> el.onObjectAdded(obj)); //TODO: Could be removed due to performance concerns
                 objects.add(obj);
                 totalObjects++;
             }
@@ -33,6 +34,7 @@ public class ObjectManager {
 
         if (!toRemove.isEmpty()) {
             for (GameObject obj : toRemove) {
+                obj.room.getGameInstance().getEventListeners().forEach(el -> el.onObjectKilled(obj));
                 objects.remove(obj);
             }
 
