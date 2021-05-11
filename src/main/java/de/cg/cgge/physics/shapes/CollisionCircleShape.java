@@ -37,7 +37,7 @@ public class CollisionCircleShape extends CollisionShape{
 
     @Override
     protected CollisionShape copy() {
-        return null;
+        return new CollisionCircleShape(x,y,radius);
     }
 
     public float getRadius() {

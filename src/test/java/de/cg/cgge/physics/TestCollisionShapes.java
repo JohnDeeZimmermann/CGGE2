@@ -61,12 +61,14 @@ public class TestCollisionShapes {
     public void testCollidingCircleAndBoxDetected()
     {
         Assert.assertTrue(c3.isIntersecting(b3));
+        Assert.assertTrue(b3.isIntersecting(c3));
     }
 
     @Test
     public void testNotCollidingCircleAndBoxNotDetected()
     {
         Assert.assertFalse(c1.isIntersecting(b3));
+        Assert.assertFalse(b3.isIntersecting(c1));
     }
 
 }

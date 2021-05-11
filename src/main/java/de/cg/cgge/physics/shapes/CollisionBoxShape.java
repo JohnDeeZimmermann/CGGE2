@@ -20,6 +20,22 @@ public class CollisionBoxShape extends CollisionShape {
 
     @Override
     protected boolean isIntersecting(CollisionCircleShape other) {
+        CollisionShape box = new CollisionBoxShape
+                (other.x- other.getRadius(), other.y-other.getRadius(), (int) (other.getRadius()*2), (int) (other.getRadius()*2));
+        if (!box.isIntersecting(this)) return false;
+
+        float[] cx = new float[4], cy = new float[4];
+        float d1, d2, d3, d4;
+        cx[0] = x;               cy[0] = y;
+        cx[1] = x+width;         cy[1] = y;
+        cx[2] = x;               cy[2] = height+y;
+        cx[3] = x+width;         cy[3] = height+y;
+
+        for (int i = 0; i<4; i++)
+        {
+            if ((float) Math.sqrt((cx[i]-other.x)*(cx[i]-other.x) + (cy[i]-other.y)*(cy[i]-other.y)) < other.radius) return true;
+        }
+
         return false;
     }
 
