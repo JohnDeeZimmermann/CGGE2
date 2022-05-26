@@ -2,6 +2,8 @@ package de.cg.cgge.events;
 
 import de.cg.cgge.game.GameObject;
 
+import java.awt.event.MouseEvent;
+
 public class EventListener {
 
     /*
@@ -13,26 +15,23 @@ public class EventListener {
 
     public EventListener(){}
 
-    public void onWindowResized(WindowResizedEvent e)
-    {
+    public void onWindowResized(WindowResizeEvent e) {}
 
-    }
+    public void onObjectAdded(GameObject obj) {}
 
-    public void onObjectAdded(GameObject obj)
-    {
+    public void onObjectKilled(GameObject obj) {}
 
-    }
+    public void onRoomChanged(RoomChangeEvent e) {}
 
-    public void onObjectKilled(GameObject obj)
-    {
+    public void onMousePressed(MouseEvent e) {}
 
-    }
+    public void onMouseClicked(MouseEvent e) {}
 
-    public void onRoomChanged(RoomChangedEvent e)
-    {
+    public void onMouseReleased(MouseEvent e) {}
 
-    }
+    public void onMouseExit(MouseEvent e) {}
 
+    public void onMouseEnter(MouseEvent e) {}
 
 
 }

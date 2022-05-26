@@ -2,7 +2,7 @@ package de.cg.cgge.gui;
 
 import de.cg.cgge.ctrl.Clock;
 import de.cg.cgge.ctrl.DrawClock;
-import de.cg.cgge.events.RoomChangedEvent;
+import de.cg.cgge.events.RoomChangeEvent;
 import de.cg.cgge.game.*;
 
 public class Drawer {
@@ -43,7 +43,7 @@ public class Drawer {
      * @param room The room to be switched to
      */
     public void setRoom(Room room) {
-        game.getEventListeners().forEach(el -> el.onRoomChanged(new RoomChangedEvent(currentRoom, room)));
+        game.getEventListeners().forEach(el -> el.onRoomChanged(new RoomChangeEvent(currentRoom, room)));
         this.currentRoom = room;
         
         room.setClock(new Clock(room.getGameInstance()));

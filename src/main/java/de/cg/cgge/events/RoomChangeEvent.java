@@ -2,11 +2,11 @@ package de.cg.cgge.events;
 
 import de.cg.cgge.game.Room;
 
-public class RoomChangedEvent extends Event{
+public class RoomChangeEvent extends Event{
 
     private Room from, to;
 
-    public RoomChangedEvent(Room from, Room to)
+    public RoomChangeEvent(Room from, Room to)
     {
         this.from = from;
         this.to = to;
