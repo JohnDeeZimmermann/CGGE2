@@ -2,6 +2,9 @@ package de.cg.cgge.physics;
 
 import de.cg.cgge.game.GameObject;
 import de.cg.cgge.game.PhysicalGameObject;
+import de.cg.cgge.physics.shapes.CollisionBoxShape;
+import de.cg.cgge.physics.shapes.CollisionCircleShape;
+import de.cg.cgge.physics.shapes.CollisionShape;
 
 public class Mover extends Physics {
 
@@ -34,13 +37,22 @@ public class Mover extends Physics {
 
         onGround = false; 
 
-        if (xspeed != 0 && col.checkSolidCollision(obj.getCollisionShape())) { //TODO: Add the xspeed to the x coords of the collision shape
-            GameObject lastCollision = col.getLastCollision();
-            
-            if (xspeed > 0 ) {
-                x = lastCollision.getX()-obj.getWidth(); 
-            } else {
-                x = lastCollision.getX()+lastCollision.getWidth(); 
+        if (xspeed != 0 && col.checkSolidCollision(obj.getCollisionShape().getMovedInstance(xspeed,0))) {
+            PhysicalGameObject lastCollision = (PhysicalGameObject) col.getLastCollision();
+            CollisionShape shape = lastCollision.getCollisionShape();
+
+            if (shape instanceof CollisionBoxShape)
+            {
+                CollisionBoxShape box = (CollisionBoxShape) shape;
+                if (xspeed > 0) {
+                    x = box.getX() - obj.getWidth() - 1;
+                } else {
+                    x = box.getX() + box.getWidth() + 1;
+                }
+            }
+
+            else if (shape instanceof CollisionCircleShape) {
+                x -= xspeed;
             }
 
             xspeed = 0; 
@@ -48,14 +60,23 @@ public class Mover extends Physics {
             x += xspeed; 
         }
 
-        if (yspeed != 0 && col.checkSolidCollision(obj.getCollisionShape())) { //TODO: Add the yspeed to the y coords of the collision shape
-            GameObject lastCollision = col.getLastCollision();
-            
-            if (yspeed > 0 ) {
-                y = lastCollision.getY()-obj.getHeight(); 
-                onGround = true;
-            } else {
-                y = lastCollision.getY()+lastCollision.getHeight(); 
+        if (yspeed != 0 && col.checkSolidCollision(obj.getCollisionShape().getMovedInstance(0, yspeed))) {
+            PhysicalGameObject lastCollision = (PhysicalGameObject) col.getLastCollision();
+
+            CollisionShape shape = lastCollision.getCollisionShape();
+
+            if (shape instanceof CollisionBoxShape)
+            {
+                CollisionBoxShape box = (CollisionBoxShape) shape;
+                if (yspeed > 0) {
+                    y = box.getY() - obj.getHeight() - 1f;
+                } else {
+                    y = box.getY() + box.getHeight() + 1f;
+                }
+            }
+
+            else if (shape instanceof CollisionCircleShape) {
+                y -= yspeed;
             }
 
             yspeed = 0; 

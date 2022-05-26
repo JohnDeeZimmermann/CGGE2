@@ -55,7 +55,7 @@ public class GameFile {
      */
     public FileContents getContents() {
         if(!fileContentsLoaded)
-            throw new IllegalStateException("");
+            throw new IllegalStateException("File needs to be loaded with loadToMemory()");
 
         return this.fileContents; 
     }

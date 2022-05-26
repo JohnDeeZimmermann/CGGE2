@@ -1,14 +1,16 @@
 package de.cg.cgge.game;
 
 import de.cg.cgge.physics.Physics;
+import de.cg.cgge.physics.shapes.CollisionCircleShape;
 import de.cg.cgge.physics.shapes.CollisionShape;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PhysicalGameObject extends GameObject{
 
     protected CollisionShape collisionShape;
-    private final ArrayList<Physics> physicsComponents = new ArrayList<>(0);
+    private final List<Physics> physicsComponents = new ArrayList<>(0);
 
     /**
      * Creates a GameObject, important for logic and drawing
@@ -20,7 +22,12 @@ public class PhysicalGameObject extends GameObject{
         this.collisionShape = shape;
     }
 
-    public ArrayList<Physics> getPhysicsComponents() {
+    public PhysicalGameObject(Room room) {
+        super(room);
+        this.collisionShape = new CollisionCircleShape(0,0,0);
+    }
+
+    public List<Physics> getPhysicsComponents() {
         return this.physicsComponents;
     }
 
@@ -44,5 +51,9 @@ public class PhysicalGameObject extends GameObject{
 
     public CollisionShape getCollisionShape() {
         return collisionShape;
+    }
+
+    public void setCollisionShape(CollisionShape shape) {
+        this.collisionShape = shape;
     }
 }

@@ -25,6 +25,7 @@ public class Collider {
 
     /**
         Checks for collision with objects that are solid
+        @param shape The shape that is used as collision mask (Usually the GameObject's CollisionShape)
         @return Whether there is a collision or not
     */
     public boolean checkSolidCollision(CollisionShape shape) {
@@ -46,14 +47,18 @@ public class Collider {
     }
 
 
-
-    public boolean checkCollision() {
+    /**
+     Checks for collision with any physical objects
+     @param shape The shape that is used as collision mask (Usually the GameObject's CollisionShape)
+     @return Whether there is a collision or not
+     */
+    public boolean checkCollision(CollisionShape shape) {
         for (int i = 0; i<room.getObjectManager().getObjects().size(); i++) {
             GameObject obj = room.getObjectManager().getObjects().get(i);
             if (!(obj instanceof PhysicalGameObject)) continue;
             PhysicalGameObject pobj = (PhysicalGameObject) obj;
 
-            if (obj != tester && tester.getCollisionShape().isIntersecting(pobj.getCollisionShape()))
+            if (obj != tester && shape.isIntersecting(pobj.getCollisionShape()))
             {
                 lastCollision = i;
                 return true;
@@ -65,14 +70,18 @@ public class Collider {
         return false;
     }
 
-
-    public boolean checkUnsolidCollision() {
+    /**
+     Checks for collision with objects that are not solid
+     @param shape The shape that is used as collision mask (Usually the GameObject's CollisionShape)
+     @return Whether there is a collision or not
+     */
+    public boolean checkUnsolidCollision(CollisionShape shape) {
         for (int i = 0; i<room.getObjectManager().getObjects().size(); i++) {
             GameObject obj = room.getObjectManager().getObjects().get(i);
             if (!(obj instanceof PhysicalGameObject)) continue;
             PhysicalGameObject pobj = (PhysicalGameObject) obj;
 
-            if (!obj.isSolid() && obj != tester && tester.getCollisionShape().isIntersecting(pobj.getCollisionShape()))
+            if (!obj.isSolid() && obj != tester && shape.isIntersecting(pobj.getCollisionShape()))
             {
                 lastCollision = i;
                 return true;

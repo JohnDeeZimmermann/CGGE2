@@ -31,7 +31,7 @@ public class CollisionCircleShape extends CollisionShape{
 
     @Override
     protected boolean isIntersecting(CollisionCircleShape other) {
-        float distance = (float) Math.sqrt((other.x-x)*(other.x-x) + (other.y-y)*(other.y-y)); //sqrt[(x1 - x2)² + (y2-y1)²]
+        float distance = (float) Math.sqrt((other.x-x)*(other.x-x) + (other.y-y)*(other.y-y)); //sqrt[(x1 - x2)^2 + (y2-y1)^2]
         return (distance < other.getRadius()+radius);
     }
 

@@ -21,6 +21,8 @@ public class GameInstance {
     private boolean isTaskbarActive = false;
     private boolean isVisible = true;
 
+    private FileContents configContents;
+
     private List<EventListener> eventListeners = new ArrayList<>(1);
 
     private Drawer drawer;
@@ -47,6 +49,7 @@ public class GameInstance {
                 gf.loadToMemory(); 
 
                 FileContents fc = gf.getContents();
+                this.configContents = fc;
 
                 //Assign data from file to variable
                 if (fc.getFromKeyword("title") != null)
@@ -192,4 +195,7 @@ public class GameInstance {
         return eventListeners;
     }
 
+    public FileContents getConfigContents() {
+        return configContents;
+    }
 }
