@@ -38,12 +38,12 @@ public class Drawer {
     }
 
     /**
-     * Sets the room and starts it's clock
-     * WARNING: This is not recommended! It is not save, as the previous room is still handled in background
+     * Sets the room and starts its clock
+     * WARNING: This is not recommended! It is not safe, as the previous room is still handled in background
      * @param room The room to be switched to
      */
     public void setRoom(Room room) {
-        game.getEventListeners().forEach(el -> el.onRoomChanged(new RoomChangeEvent(currentRoom, room)));
+        game.getEventMapper().onRoomChange(new RoomChangeEvent(currentRoom, room));
         this.currentRoom = room;
         
         room.setClock(new Clock(room.getGameInstance()));

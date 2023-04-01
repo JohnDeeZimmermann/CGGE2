@@ -22,8 +22,9 @@ public class WindowListener implements ComponentListener {
         game.setWidth(w);
         game.setHeight(h);
 
-        game.getEventListeners()
-                .forEach(el -> el.onWindowResized(new WindowResizeEvent(win.getX(), win.getY(), w, h)));
+        game.getEventMapper().onWindowResize(
+                new WindowResizeEvent(win.getX(), win.getY(), w, h)
+        );
 
     }
 

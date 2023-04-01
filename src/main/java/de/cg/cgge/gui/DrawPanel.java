@@ -22,8 +22,6 @@ public class DrawPanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
-
         Graphics g = screen.getGraphics();
                 
         g.setColor(bgColor);

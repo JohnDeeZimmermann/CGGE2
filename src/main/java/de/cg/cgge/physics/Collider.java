@@ -101,6 +101,9 @@ public class Collider {
         return room.getObjectManager().getObjects().get(lastCollision);
     }
 
+    //A method to be overridden by child classes
+    protected void result() {
 
+    }
 
 }

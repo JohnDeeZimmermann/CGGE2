@@ -19,7 +19,7 @@ public class MouseManager implements MouseListener {
             obj.mouseClicked(e);
         } 
 
-        drawer.getGameInstance().getEventListeners().forEach(eventListener -> eventListener.onMouseClicked(e));
+        drawer.getGameInstance().getEventMapper().onMouseClicked(e);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class MouseManager implements MouseListener {
             obj.mousePressed(e);
         }
 
-        drawer.getGameInstance().getEventListeners().forEach(eventListener -> eventListener.onMousePressed(e));
+        drawer.getGameInstance().getEventMapper().onMousePressed(e);
     }
 
     @Override
@@ -37,17 +37,17 @@ public class MouseManager implements MouseListener {
             obj.mouseReleased(e);
         }
 
-        drawer.getGameInstance().getEventListeners().forEach(eventListener -> eventListener.onMouseReleased(e));
+        drawer.getGameInstance().getEventMapper().onMouseReleased(e);
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        drawer.getGameInstance().getEventListeners().forEach(eventListener -> eventListener.onMouseEnter(e));
+        drawer.getGameInstance().getEventMapper().onMouseEnter(e);
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        drawer.getGameInstance().getEventListeners().forEach(eventListener -> eventListener.onMouseExit(e));
+        drawer.getGameInstance().getEventMapper().onMouseExit(e);
     }
 
 }

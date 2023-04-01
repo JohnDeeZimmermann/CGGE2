@@ -19,13 +19,8 @@ public class DrawClock extends Clock {
         if (this.game.getDrawer().getWindow() != null) {
             try {
                 this.game.getDrawer().getWindow().getDrawPanel().paintImmediately(0,0,game.getWidth(), game.getHeight());
-            } catch (ConcurrentModificationException e) {
-
-            }
+            } catch (ConcurrentModificationException e) {}
         }
-
-        
-
     }
     
 

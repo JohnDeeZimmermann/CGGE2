@@ -6,10 +6,12 @@ import java.util.List;
 
 import de.cg.cgge.events.Event;
 import de.cg.cgge.events.EventListener;
+import de.cg.cgge.events.EventMapper;
 import de.cg.cgge.files.FileContents;
 import de.cg.cgge.files.GameFile;
 import de.cg.cgge.gui.Drawer;
 import de.cg.cgge.gui.Window;
+import de.cg.cgge.io.KeyManager;
 
 public class GameInstance {
 
@@ -23,7 +25,7 @@ public class GameInstance {
 
     private FileContents configContents;
 
-    private List<EventListener> eventListeners = new ArrayList<>(1);
+    private EventMapper eventMapper;
 
     private Drawer drawer;
 
@@ -74,6 +76,8 @@ public class GameInstance {
         drawer = new Drawer(this);
         drawer.initWindow();
         drawer.getRoom().getClock().start();
+
+        eventMapper = new EventMapper(this);
 
     }
 
@@ -185,17 +189,15 @@ public class GameInstance {
         return isVisible;
     }
 
-    public void addEventListener(EventListener l)
-    {
-        eventListeners.add(l);
-    }
-
-    public List<EventListener> getEventListeners()
-    {
-        return eventListeners;
-    }
-
     public FileContents getConfigContents() {
         return configContents;
+    }
+
+    public KeyManager getKeyManager() {
+        return drawer.getWindow().getKeyManger();
+    }
+
+    public EventMapper getEventMapper() {
+        return eventMapper;
     }
 }
