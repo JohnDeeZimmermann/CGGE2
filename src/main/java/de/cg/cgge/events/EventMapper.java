@@ -97,6 +97,7 @@ public class EventMapper {
         }
     }
 
-
-
+    public GameInstance getGame() {
+        return game;
+    }
 }

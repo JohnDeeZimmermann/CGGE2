@@ -7,6 +7,7 @@ import java.util.List;
 import de.cg.cgge.events.Event;
 import de.cg.cgge.events.EventListener;
 import de.cg.cgge.events.EventMapper;
+import de.cg.cgge.events.base.DefaultWindowResizeEventListener;
 import de.cg.cgge.files.FileContents;
 import de.cg.cgge.files.GameFile;
 import de.cg.cgge.gui.Drawer;
@@ -38,7 +39,7 @@ public class GameInstance {
     }
 
     /**
-     * Constructor to setup the game, with additional config files
+     * Constructor to set up the game, with additional config files
      * Creates own drawer instance and launches the window
      * @param config The config; It's loaded as a GameFile
      */
@@ -79,7 +80,11 @@ public class GameInstance {
 
         eventMapper = new EventMapper(this);
 
+        //Default events
+        eventMapper.addEventListener(new DefaultWindowResizeEventListener());
+
     }
+
 
     public int getHeight() {
         return height;
@@ -110,6 +115,7 @@ public class GameInstance {
      */
     public void changeWidth(int width) {
         drawer.getWindow().setSize(width, height);
+        drawer.getWindow().getDrawPanel().setSize(width, height);
         this.width = width;
     }
 
@@ -119,6 +125,7 @@ public class GameInstance {
      */
     public void changeHeight(int height) {
         drawer.getWindow().setSize(width, height);
+        drawer.getWindow().getDrawPanel().setSize(width, height);
         this.height = height;
     }
 
