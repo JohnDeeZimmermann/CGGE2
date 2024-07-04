@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+import de.cg.cgge.gui.Resolution;
 import de.cg.cgge.physics.Physics;
 
 public class GameObject {
@@ -97,6 +98,14 @@ public class GameObject {
      */
     public void keyTyped(KeyEvent e) {
 
+    }
+
+    /**
+     * Gets called on object creation and when the resolution changes
+     * @param currentResolution
+     */
+    public void initGraphics(Resolution currentResolution) {
+        
     }
 
     /**

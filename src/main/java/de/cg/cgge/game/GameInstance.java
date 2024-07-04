@@ -11,6 +11,8 @@ import de.cg.cgge.events.base.DefaultWindowResizeEventListener;
 import de.cg.cgge.files.FileContents;
 import de.cg.cgge.files.GameFile;
 import de.cg.cgge.gui.Drawer;
+import de.cg.cgge.gui.GraphicsSettings;
+import de.cg.cgge.gui.Resolution;
 import de.cg.cgge.gui.Window;
 import de.cg.cgge.io.KeyManager;
 
@@ -19,10 +21,10 @@ public class GameInstance {
     private String title = "GAME";
 
     private int framerate = 60;
-    private int width = 1280;
-    private int height = 720;
+    private Resolution resolution = new Resolution(1280, 720);
     private boolean isTaskbarActive = false;
     private boolean isVisible = true;
+    private GraphicsSettings graphicsSettings;
 
     private FileContents configContents;
 
@@ -41,14 +43,14 @@ public class GameInstance {
     /**
      * Constructor to set up the game, with additional config files
      * Creates own drawer instance and launches the window
-     * @param config The config; It's loaded as a GameFile
+     * @param configPath The config; It's loaded as a GameFile
      */
-    public GameInstance(String config) {
+    public GameInstance(String configPath) {
 
         //Load config
-        if (!config.equals("")) {
+        if (!configPath.equals("")) {
             try {
-                GameFile gf = new GameFile(config);
+                GameFile gf = new GameFile(configPath);
                 gf.loadToMemory(); 
 
                 FileContents fc = gf.getContents();
@@ -58,9 +60,9 @@ public class GameInstance {
                 if (fc.getFromKeyword("title") != null)
                     title = fc.getFromKeyword("title");
                 if (fc.getFromKeyword("width") != null)
-                    width = Integer.parseInt(fc.getFromKeyword("width"));
+                    setWidth(Integer.parseInt(fc.getFromKeyword("width")));
                 if (fc.getFromKeyword("height") != null)
-                    height = Integer.parseInt(fc.getFromKeyword("height"));
+                    setHeight(Integer.parseInt(fc.getFromKeyword("height")));
                 if (fc.getFromKeyword("framerate") != null)
                     framerate = Integer.parseInt(fc.getFromKeyword("framerate"));
                 if (fc.getFromKeyword("taskbar") != null)
@@ -83,11 +85,18 @@ public class GameInstance {
         //Default events
         eventMapper.addEventListener(new DefaultWindowResizeEventListener());
 
+        graphicsSettings = new GraphicsSettings(this);
+
     }
 
 
+    /**
+     * Use getResolution() instead.
+     * @return The height of the game window
+     */
+    @Deprecated
     public int getHeight() {
-        return height;
+        return resolution.getHeigth();
     }
 
     /**
@@ -95,18 +104,23 @@ public class GameInstance {
      * @param height Height value
      */
     public void setHeight(int height) {
-        this.height = height;
+        this.resolution = new Resolution(resolution.getWidth(), height);
     }
 
+    /**
+     * Use getResolution() instead.
+     * @return The width of the game window
+     */
+    @Deprecated
     public int getWidth() {
-        return width;
+        return resolution.getWidth();
     }
     /**
      * Sets the target width. It does not affect the actual window size
      * @param width Width value
      */
     public void setWidth(int width) {
-        this.width = width;
+        this.resolution = new Resolution(width, resolution.getHeigth());
     }
 
     /**
@@ -114,9 +128,9 @@ public class GameInstance {
      * @param width New Width
      */
     public void changeWidth(int width) {
-        drawer.getWindow().setSize(width, height);
-        drawer.getWindow().getDrawPanel().setSize(width, height);
-        this.width = width;
+        drawer.getWindow().setSize(width, resolution.getHeigth());
+        drawer.getWindow().getDrawPanel().setSize(width, resolution.getHeigth());
+        setWidth(width);
     }
 
     /**
@@ -124,9 +138,9 @@ public class GameInstance {
      * @param height New Height
      */
     public void changeHeight(int height) {
-        drawer.getWindow().setSize(width, height);
-        drawer.getWindow().getDrawPanel().setSize(width, height);
-        this.height = height;
+        drawer.getWindow().setSize(resolution.getWidth(), height);
+        drawer.getWindow().getDrawPanel().setSize(resolution.getWidth(), height);
+        setHeight(height);
     }
 
     /**
@@ -206,5 +220,13 @@ public class GameInstance {
 
     public EventMapper getEventMapper() {
         return eventMapper;
+    }
+
+    public GraphicsSettings getGraphicsSettings() {
+        return graphicsSettings;
+    }
+
+    public Resolution getResolution() {
+        return resolution;
     }
 }

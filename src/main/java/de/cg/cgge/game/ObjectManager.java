@@ -23,6 +23,7 @@ public class ObjectManager {
             for (GameObject obj : toAdd) {
                 obj.setID(totalObjects);
                 obj.create();
+                obj.initGraphics(obj.room.getGameInstance().getResolution());
                 obj.room.getGameInstance().getEventMapper().onObjectAdded(obj);
                 objects.add(obj);
                 totalObjects++;
