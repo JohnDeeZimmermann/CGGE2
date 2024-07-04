@@ -65,7 +65,8 @@ public class Sound {
     public void stop() {
         if (clip.isRunning()) {
             clip.stop();
-            clip.close();
+            clip.flush();
+            clip.setFramePosition(0);
         }
     }
 
@@ -73,6 +74,8 @@ public class Sound {
      * Deletes the file from memorsy
      */
     public void erase() {
+        clip.flush();
+        clip.close();
         clip = null; 
         ais = null; 
     }
