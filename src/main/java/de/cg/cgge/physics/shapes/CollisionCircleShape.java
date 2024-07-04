@@ -40,6 +40,16 @@ public class CollisionCircleShape extends CollisionShape{
         return new CollisionCircleShape(x,y,radius);
     }
 
+    @Override
+    public float getWidth() {
+        return getRadius() * 2;
+    }
+
+    @Override
+    public float getHeight() {
+        return 0;
+    }
+
     public float getRadius() {
         return radius;
     }

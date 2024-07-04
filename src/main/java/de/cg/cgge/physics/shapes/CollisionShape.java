@@ -34,6 +34,10 @@ public abstract class CollisionShape {
     protected abstract boolean isIntersecting(CollisionCircleShape other);
     protected abstract CollisionShape copy();
 
+    public abstract float getWidth();
+
+    public abstract float getHeight();
+
     public float getX() {
         return x;
     }
