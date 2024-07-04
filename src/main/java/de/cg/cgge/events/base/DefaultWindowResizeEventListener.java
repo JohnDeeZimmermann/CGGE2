@@ -4,6 +4,7 @@ import de.cg.cgge.events.EventMapper;
 import de.cg.cgge.events.WindowResizeEvent;
 import de.cg.cgge.events.WindowResizeEventListener;
 import de.cg.cgge.game.GameInstance;
+import de.cg.cgge.game.GameObject;
 
 public class DefaultWindowResizeEventListener implements WindowResizeEventListener {
     @Override
@@ -11,5 +12,8 @@ public class DefaultWindowResizeEventListener implements WindowResizeEventListen
         GameInstance game = mapper.getGame();
         game.changeWidth(e.getNewWidth());
         game.changeHeight(e.getNewHeight());
+        for (GameObject obj : game.getRoom().getObjectManager().getObjects()) {
+            obj.initGraphics(game.getResolution());
+        }
     }
 }

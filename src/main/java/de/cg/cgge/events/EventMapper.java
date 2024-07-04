@@ -2,6 +2,7 @@ package de.cg.cgge.events;
 
 import de.cg.cgge.game.GameInstance;
 import de.cg.cgge.game.GameObject;
+import de.cg.cgge.gui.Resolution;
 
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -93,6 +94,14 @@ public class EventMapper {
         for (EventListener listener : eventListeners) {
             if (listener instanceof RoomChangeEventListener) {
                 ((RoomChangeEventListener) listener).onRoomChanged(e, this);
+            }
+        }
+    }
+
+    public void onInternalResolutionChanged(Resolution n, Resolution old) {
+        for (EventListener listener : eventListeners) {
+            if (listener instanceof InternalResolutionChangedListener) {
+                ((InternalResolutionChangedListener) listener).onInternalResolutionChanged(n, old);
             }
         }
     }
