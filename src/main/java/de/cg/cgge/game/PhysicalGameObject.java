@@ -42,8 +42,8 @@ public class PhysicalGameObject extends GameObject{
      * Call an update() method on all physics of the object
      */
     public void updatePhysics() {
-        collisionShape.setX(x);
-        collisionShape.setY(y);
+        collisionShape.setX(getAbsoluteX());
+        collisionShape.setY(getAbsoluteY());
         for (Physics p : physicsComponents) {
             p.update();
         }

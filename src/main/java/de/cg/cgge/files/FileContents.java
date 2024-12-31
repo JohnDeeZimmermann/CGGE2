@@ -120,7 +120,7 @@ public class FileContents {
      */
     public String getFromKeyword(String keyword) {
         if (contentCache.containsKey(keyword))
-        return contentCache.get(keyword);
+            return contentCache.get(keyword);
         return null;
     }
 

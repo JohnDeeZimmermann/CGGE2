@@ -15,7 +15,6 @@ public class CollisionCircleShape extends CollisionShape{
         if (!box.isIntersecting(other)) return false;
 
         float[] cx = new float[4], cy = new float[4];
-        float d1, d2, d3, d4;
         cx[0] = other.x;                      cy[0] = other.y;
         cx[1] = other.x+other.getWidth();     cy[1] = other.y;
         cx[2] = other.x;                      cy[2] = other.getHeight()+other.y;
@@ -23,7 +22,8 @@ public class CollisionCircleShape extends CollisionShape{
 
         for (int i = 0; i<4; i++)
         {
-            if ((float) Math.sqrt((cx[i]-x)*(cx[i]-x) + (cy[i]-y)*(cy[i]-y)) < radius) return true;
+            if ((float) Math.sqrt((cx[i]-x)*(cx[i]-x) + (cy[i]-y)*(cy[i]-y)) < radius)
+                return true;
         }
 
         return false;

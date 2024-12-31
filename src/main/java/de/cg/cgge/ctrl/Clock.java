@@ -77,18 +77,30 @@ public class Clock extends Thread {
 
         game.getDrawer().getRoom().getObjectManager().updateObjects();
 
-        //for (GameObject obj : objects) {
-        //    obj.preStep();
-        //}
+        for (GameObject obj : objects) {
+            propagatePreStep(obj);
+        }
 
         for (GameObject obj : objects) {
-            obj.step();
-            //Physics objects will automatically get their physics updated
-            if (!(obj instanceof PhysicalGameObject)) return;
+            propagateStep(obj);
+        }
+    }
+
+    private void propagateStep(GameObject obj) {
+        obj.step();
+        if (obj instanceof PhysicalGameObject) {
             ((PhysicalGameObject) obj).updatePhysics();
         }
-        
+        for (GameObject child : obj.getChildren()) {
+            propagateStep(child);
+        }
+    }
 
+    private void propagatePreStep(GameObject obj) {
+        obj.preStep();
+        for (GameObject child : obj.getChildren()) {
+            propagatePreStep(child);
+        }
     }
 
     public boolean ranOnce() {

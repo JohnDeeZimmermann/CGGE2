@@ -50,9 +50,7 @@ public class DrawPanel extends JPanel {
         }
 
         for (GameObject obj : room.getObjectManager().getObjects()) {
-            if (obj.isVisible()) {
-                obj.draw(g);
-            }
+            propagateDraw(obj, g);
         }
 
         if (room.usesTileMap()) {
@@ -60,9 +58,7 @@ public class DrawPanel extends JPanel {
         }
 
         for (GameObject obj : room.getObjectManager().getObjects()) {
-            if (obj.isVisible()) {
-                obj.postDraw(g);
-            }
+            propagatePostDraw(obj, g);
         }
 
         if (settings == null || settings.getInternalResolution() == null) {
@@ -80,6 +76,26 @@ public class DrawPanel extends JPanel {
         drawer.increasePassedFrames();
 
         
+    }
+
+    private void propagateDraw(GameObject o, Graphics g) {
+        if (!o.isVisible()) return;
+
+        o.draw(g);
+        for (GameObject child : o.getChildren()) {
+            if (child.isVisible())
+                propagateDraw(child, g);
+        }
+    }
+
+    private void propagatePostDraw(GameObject o, Graphics g) {
+        if (!o.isVisible()) return;
+
+        o.postDraw(g);
+        for (GameObject child : o.getChildren()) {
+            if (child.isVisible())
+                propagatePostDraw(child, g);
+        }
     }
 
     public void setBackgroundColor(Color color) {

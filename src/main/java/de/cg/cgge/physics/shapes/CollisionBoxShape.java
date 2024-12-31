@@ -25,7 +25,6 @@ public class CollisionBoxShape extends CollisionShape {
         if (!box.isIntersecting(this)) return false;
 
         float[] cx = new float[4], cy = new float[4];
-        float d1, d2, d3, d4; //TODO Inspect this line? What was it meant for?
         cx[0] = x;               cy[0] = y;
         cx[1] = x+width;         cy[1] = y;
         cx[2] = x;               cy[2] = height+y;
