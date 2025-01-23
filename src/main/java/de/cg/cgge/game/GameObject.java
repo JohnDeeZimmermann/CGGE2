@@ -39,6 +39,10 @@ public class GameObject {
         room.getObjectManager().addObject(this);
     }
 
+    /**
+     * Creates a GameObject, important for logic and drawing
+     * @param room calls a getObjectManager().addObject(this) on the room
+     */
     public GameObject(Room room) {
         this(room, null);
     }
@@ -90,7 +94,9 @@ public class GameObject {
 
     /**
      * @param e Event thats called when key is typed
+     * @deprecated Use the new input system instead
      */
+    @Deprecated
     public void keyTyped(KeyEvent e) {}
 
     /**

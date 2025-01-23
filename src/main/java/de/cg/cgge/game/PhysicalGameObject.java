@@ -47,6 +47,11 @@ public class PhysicalGameObject extends GameObject{
         for (Physics p : physicsComponents) {
             p.update();
         }
+        for (GameObject child : getChildren()) {
+            if (child instanceof PhysicalGameObject) {
+                ((PhysicalGameObject) child).updatePhysics();
+            }
+        }
     }
 
     public CollisionShape getCollisionShape() {
