@@ -7,7 +7,7 @@ Now that you have your game set up, we can proceed with creating your first _Gam
 ```JAVA
 import de.cg.cgge.game.GameObject;
 
-public class TestObject extends GameObject() {
+public class TestObject extends GameObject {
 
     //Now you should implement the constructor
     
@@ -29,19 +29,24 @@ It will now display a rectangle at the specified position. The draw method is ca
 Another trait of game object is that they have float x, y and int w, h already pre-defined.
 It’s recommended to use these to draw your object as the position should update when the position of the object updates as well as these values are tied to the physics engine.
 So let’s update the code:
+
 ```JAVA
-public TestObject(Room room) { 
-    super(room);
-    
-    this.x = 50; 
-    this.y = 50; 
-    this.w = 50; 
+public TestObject(Room room, GameObject parent) {
+    super(room, parent);
+
+    this.x = 50;
+    this.y = 50;
+    this.w = 50;
     this.h = 50;
 }
+
 @Override
-public void draw(Graphics g) { 
-    g.setColor(Color.WHITE); 
-    g.fillRect((int) x,(int) y, w, h);
+public void draw(Graphics g) {
+    g.setColor(Color.WHITE);
+    // Get absolute values as to make this compatible with 
+    int x = getAbsoluteX();
+    int y = getAbsoluteY();
+    g.fillRect((int) x, (int) y, w, h);
 }
 ```
 
@@ -54,16 +59,17 @@ The getRoom() method returns the currently active room, in which the object shou
 
 The following table lists all the methods that can be overridden:
 
-| **Method**                              	| **Purpose**                                                                                                	|
-|-------------------------------------------	|--------------------------------------------------------------------------------------------------------------	|
-| `protected void create()`               	| Is called, when the object is added to the main loop                                                         	|
-| `public void step()`                    	| Is called every tick. (That is every frame)                                                                  	|
-| `public void preStep()`                 	| Is called every tick, but before any step() methods are called                                               	|
-| `public void draw(Graphics)`            	| Is called every tick. Runs on the draw thread and its purpose is to make your objects visible on the screen. 	|
-| `public void postDraw(Graphics)`        	| Is like draw(Graphics), but is called AFTER all the draw() methods. Is recommended for GUI.                  	|
-| `public void mouseClicked(MouseEvent)`  	| Is called when the mouse is clicked                                                                          	|
-| `public void mousePressed(MouseEvent)`  	| Is called, once the mouse is pressed                                                                         	|
-| `public void mouseReleased(MouseEvent)` 	| Is called, once the mouse is released, after it was pressed                                                  	|
+| **Method**                              	 | **Purpose**                                                                                                	   |
+|-------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| `protected void create()`               	 | Is called, when the object is added to the main loop                                                         	 |
+| `public void step()`                    	 | Is called every tick. (That is every frame)                                                                  	 |
+| `public void preStep()`                 	 | Is called every tick, but before any step() methods are called                                               	 |
+| `public void draw(Graphics)`            	 | Is called every tick. Runs on the draw thread and its purpose is to make your objects visible on the screen. 	 |
+| `public void postDraw(Graphics)`        	 | Is like draw(Graphics), but is called AFTER all the draw() methods. Is recommended for GUI.                  	 |
+| `public void mouseClicked(MouseEvent)`  	 | Is called when the mouse is clicked                                                                          	 |
+| `public void mousePressed(MouseEvent)`  	 | Is called, once the mouse is pressed                                                                         	 |
+| `public void mouseReleased(MouseEvent)` 	 | Is called, once the mouse is released, after it was pressed                                                  	 |
+| `public void initGraphics(Resolution)` 	  | Is called on object initialization and when resizing the screen.                                               |
 
 All the other methods should not be overridden.
 
@@ -236,3 +242,17 @@ float delta = Physics.deltaTime();
 float speed = 500f*delta;
 ```
 Note that delta tends to be quite small, which is why your speed values must be larger to equalize that effect.
+
+
+### 2.6 Gravity
+`Gravity` is a physics component which can easily be added to any `PhysicalGameObject`. 
+It automatically pushes the object down. Just provide it with a force and a `Mover` instance.  
+
+### 2.7 Child Objects
+Child objects are attached to their parent objects and get called alongside the parent object. You can imagine the structure as a tree. 
+In order to add child objects, use the GameObject's `addChild(GameObject)` method. 
+
+It is important that the child object has the parent defined as its parent first. If the class of the child object does not expose a way to add a parent, it means that it doesn't support being added as a child.
+To support being added as child objects, a class should call `GameObject(Room, GameObject)` as `super` within its own constructor. 
+Additionally, it should then also always use `getAbsoluteX()` and `getAbsoluteY()` when drawing the object. 
+

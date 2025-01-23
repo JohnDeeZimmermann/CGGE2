@@ -1,5 +1,5 @@
 # CGGE2 Game Engine - Getting Started
-***1.0 Introduction***
+***1 Introduction***
 
 CGGE2 offers an easy way to create games in Java. It is simple and straight forward.
 First, you must download one of the latest builds of the API and include it into your project. Based on the IDE or editor you are using, the approach may vary a little.
