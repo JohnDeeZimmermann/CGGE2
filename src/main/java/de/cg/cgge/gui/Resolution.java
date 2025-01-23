@@ -2,16 +2,16 @@ package de.cg.cgge.gui;
 
 public class Resolution {
 
-    private final int heigth;
+    private final int height;
     private final int width;
 
-    public Resolution(int width, int heigth) {
-        this.heigth = heigth;
+    public Resolution(int width, int height) {
+        this.height = height;
         this.width = width;
     }
 
-    public int getHeigth() {
-        return heigth;
+    public int getHeight() {
+        return height;
     }
 
     public int getWidth() {

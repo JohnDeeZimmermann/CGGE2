@@ -4,7 +4,6 @@ import javax.swing.*;
 import de.cg.cgge.game.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.lang.invoke.MethodHandles;
 
 public class DrawPanel extends JPanel {
 
@@ -35,8 +34,8 @@ public class DrawPanel extends JPanel {
                 ? drawer.getGameInstance().getResolution()
                 : settings.getInternalResolution();
 
-        if (screen.getHeight() != res.getHeigth() || screen.getWidth() != res.getWidth()) {
-            screen = new BufferedImage(res.getWidth(), res.getHeigth(), BufferedImage.TYPE_INT_RGB);
+        if (screen.getHeight() != res.getHeight() || screen.getWidth() != res.getWidth()) {
+            screen = new BufferedImage(res.getWidth(), res.getHeight(), BufferedImage.TYPE_INT_RGB);
         }
 
         g.setColor(bgColor);
@@ -66,7 +65,7 @@ public class DrawPanel extends JPanel {
         } else {
             Resolution windowRes = drawer.getGameInstance().getResolution();
             graphics.drawImage(
-                    screen.getScaledInstance(windowRes.getWidth(), windowRes.getHeigth(), settings.getScreenScalingHint().value()),
+                    screen.getScaledInstance(windowRes.getWidth(), windowRes.getHeight(), settings.getScreenScalingHint().value()),
                     0,0,
                     null
             );

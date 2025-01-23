@@ -1,11 +1,7 @@
 package de.cg.cgge.game;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import de.cg.cgge.events.Event;
-import de.cg.cgge.events.EventListener;
 import de.cg.cgge.events.EventMapper;
 import de.cg.cgge.events.base.DefaultWindowResizeEventListener;
 import de.cg.cgge.files.FileContents;
@@ -48,7 +44,7 @@ public class GameInstance {
     public GameInstance(String configPath) {
 
         //Load config
-        if (!configPath.equals("")) {
+        if (!configPath.isEmpty()) {
             try {
                 GameFile gf = new GameFile(configPath);
                 gf.loadToMemory(); 
@@ -80,13 +76,12 @@ public class GameInstance {
         drawer.initWindow();
         drawer.getRoom().getClock().start();
 
-        eventMapper = new EventMapper(this);
+        this.eventMapper = new EventMapper(this);
 
         //Default events
-        eventMapper.addEventListener(new DefaultWindowResizeEventListener());
+        this.eventMapper.addEventListener(new DefaultWindowResizeEventListener());
 
         graphicsSettings = new GraphicsSettings(this);
-
     }
 
 
@@ -96,7 +91,7 @@ public class GameInstance {
      */
     @Deprecated
     public int getHeight() {
-        return resolution.getHeigth();
+        return resolution.getHeight();
     }
 
     /**
@@ -120,7 +115,7 @@ public class GameInstance {
      * @param width Width value
      */
     public void setWidth(int width) {
-        this.resolution = new Resolution(width, resolution.getHeigth());
+        this.resolution = new Resolution(width, resolution.getHeight());
     }
 
     /**
@@ -128,8 +123,8 @@ public class GameInstance {
      * @param width New Width
      */
     public void changeWidth(int width) {
-        drawer.getWindow().setSize(width, resolution.getHeigth());
-        drawer.getWindow().getDrawPanel().setSize(width, resolution.getHeigth());
+        drawer.getWindow().setSize(width, resolution.getHeight());
+        drawer.getWindow().getDrawPanel().setSize(width, resolution.getHeight());
         setWidth(width);
     }
 
